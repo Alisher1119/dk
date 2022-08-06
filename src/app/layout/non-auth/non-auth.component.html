@@ -1,0 +1,4 @@
+<app-loader *ngIf="loading" type="start-loader"></app-loader>
+<div *ngIf="!loading" class="non-auth-wrapper" [@routeAnimations]="getRouteAnimationData()">
+  <router-outlet></router-outlet>
+</div>

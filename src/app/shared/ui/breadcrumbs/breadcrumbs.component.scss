@@ -1,0 +1,22 @@
+.breadcrumb-item {
+  font-size: 12px;
+
+  &:not(:first-child) {
+    &::before {
+      content: '>';
+    }
+  }
+
+  .breadcrumb-link {
+    text-decoration: none;
+    text-transform: capitalize;
+    padding: 4px 2px;
+    border-radius: 4px;
+    transition: background .2s;
+    color: #6C757D;
+    &:hover, &.active {
+      background: #F6F8F9;
+      color: #0E73F6;
+    }
+  }
+}

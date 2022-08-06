@@ -1,0 +1,7 @@
+<ul class="d-flex p-2 list-unstyled">
+  <li *ngFor="let u of url; let i = index" class="breadcrumb-item">
+    <a class="breadcrumb-link" routerLink="/{{url.slice(0, i + 1).join('/')}}">
+      {{u | translate}}
+    </a>
+  </li>
+</ul>

@@ -1,0 +1,110 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <div class="text-center mb-3"><img src="/assets/images/logo.svg" class="" style="width: 80px"></div>
+  <p class="text-center text-secondary">{{"Sign up to get more access!" | translate}}</p>
+  <nz-form-item nzJustify="end">
+    <nz-form-label
+      [nzSm]="10"
+      [nzXs]="24"
+      nzAlign="top"
+      nzFor="fullName"
+      nzRequired
+      nzTooltipTitle='{{"Name parts must have 3 letters at least. Example: John Smith" | translate}}'
+    >
+      <span>{{"Full name" | translate}}</span>
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorFullPath">
+      <input nz-input id="fullName" formControlName="fullName"/>
+      <ng-template #errorFullPath let-control>
+        <ng-container *ngIf="control.hasError('required')" style="font-size: 40px">
+          {{"Please input your full name!" | translate}}
+        </ng-container>
+        <ng-container *ngIf="control.hasError('full_name')">
+          {{"Name has no match with given example in tooltip!" | translate}}
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nzJustify="end">
+    <nz-form-label
+      [nzSm]="10"
+      [nzXs]="24"
+      nzFor="username"
+      nzRequired
+      nzTooltipTitle='{{"What do you want other to call you?" | translate}}'
+    >
+      <span>{{"Username" | translate}}</span>
+    </nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip='{{"Please input your username!" | translate}}'>
+      <input nz-input id="username" formControlName="username"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nzJustify="end">
+    <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired nzFor="email">{{"E-mail" | translate}}</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip='{{"The input is not valid E-mail!" | translate}}'>
+      <input nz-input formControlName="email" id="email"/>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nzJustify="end">
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="password" nzRequired>{{"Password" | translate}}</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip='{{"Please input your password!" | translate}}'>
+      <nz-input-group [nzSuffix]="passwordEye">
+        <input
+          nz-input
+          [type]="passwordVisible ? 'text' : 'password'"
+          id="password"
+          formControlName="password"
+          (ngModelChange)="updateConfirmValidator()"
+        />
+        <ng-template #passwordEye>
+          <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
+        </ng-template>
+      </nz-input-group>
+
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nzJustify="end">
+    <nz-form-label [nzSm]="10" [nzXs]="24" nzFor="checkPassword"
+                   nzRequired>{{"Confirm Password" | translate}}</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" [nzErrorTip]="errorConfirmPass">
+      <input nz-input [type]="passwordVisible ? 'text' : 'password'" formControlName="checkPassword" id="checkPassword"/>
+      <ng-template #errorConfirmPass let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          {{"Please confirm your password!" | translate}}
+        </ng-container>
+        <ng-container *ngIf="control.hasError('confirm')">
+          {{"Two passwords that you enter is inconsistent!" | translate}}
+        </ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nzJustify="end">
+    <nz-form-label [nzSm]="10" [nzXs]="24" nzFor="phoneNumber" nzRequired>{{"Phone Number" | translate}}</nz-form-label>
+    <nz-form-control
+      [nzSm]="14"
+      [nzXs]="24"
+      [nzValidateStatus]="validateForm.controls['phoneNumber']"
+      nzErrorTip='{{"Please input your phone number!" | translate}}'
+    >
+      <nz-input-group [nzAddOnBefore]="addOnBeforeTemplate">
+        <ng-template #addOnBeforeTemplate>
+          <nz-select formControlName="phoneNumberPrefix" class="phone-select">
+            <nz-option nzLabel="+998" nzValue="+998"></nz-option>
+          </nz-select>
+        </ng-template>
+        <input formControlName="phoneNumber" id="'phoneNumber'" nz-input/>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item nzJustify="center">
+    <div class="text-center">
+      {{"Already have an account?" | translate}}
+      <a routerLink="/login" class="login-form-forgot">{{"Sign In" | translate}}</a>
+    </div>
+  </nz-form-item>
+  <nz-form-item nzJustify="center">
+    <div class="text-center">
+      <button nz-button nzType="primary">{{"Register" | translate}}</button>
+    </div>
+  </nz-form-item>
+</form>

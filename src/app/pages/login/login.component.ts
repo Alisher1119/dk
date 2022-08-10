@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "@cc/services/auth.service";
+import {AlertService} from "@cc/services/alert.service";
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
 
   validateForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private service: AuthService) {
+  constructor(private fb: FormBuilder, private service: AuthService, private alert: AlertService) {
   }
 
   ngOnInit(): void {
@@ -25,9 +26,9 @@ export class LoginComponent implements OnInit {
 
   submitForm(): void {
     if (this.validateForm.valid) {
-      this.service.login(this.validateForm.value, function ({error, msg}) {
+      this.service.login(this.validateForm.value, ({error, msg}) => {
         if (error) {
-
+          this.alert.error("123");
         }
       });
     } else {
